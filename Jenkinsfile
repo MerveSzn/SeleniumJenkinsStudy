@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+   tools {
+        maven 'Maven'
+    }
     environment {
         GIT_CREDENTIALS_ID = 'github-credentials'  // Jenkins'te tanımladığın credential ID
         REPO_URL = 'https://github.com/MerveSzn/SeleniumJenkinsStudy'
