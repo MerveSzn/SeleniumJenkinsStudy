@@ -27,23 +27,17 @@ pipeline {
             }
         }
 
-      /*   stage('Test') {
+        stage('Test') {
             steps {
                 echo 'Running tests...'
                 sh 'mvn test'
-                junit '**//* target/surefire-reports *//*.xml'  // Test sonuçlarını raporla
-            }
-        } */
-        stage('Build & Test') {
-            steps {
-                sh 'mvn clean test surefire-report:report-only' // Testleri çalıştır ve raporları oluştur
+                junit '**/target/surefire-reports/*.xml'  // Test sonuçlarını raporla
             }
         }
 
-
-         stage('Publish JUnit Report') {
+        stage('Publish JUnit Report') {
             steps {
-                junit '**//* target/surefire-reports *//*.xml' // JUnit test sonuçlarını al
+                junit '**/target/surefire-reports/*.xml' // JUnit test sonuçlarını al
             }
         }
 
