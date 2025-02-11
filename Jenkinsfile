@@ -35,30 +35,5 @@ pipeline {
             }
         }
 
-        stage('Publish JUnit Report') {
-            steps {
-                junit '**/target/surefire-reports/*.xml' // JUnit test sonuçları
-            }
-        }
-
-        stage('Publish HTML Report') {
-            steps {
-                publishHTML([
-                    reportName: 'JUnit HTML Report',
-                    reportDir: 'target/surefire-reports',  // HTML raporlarının bulunduğu dizin
-                    reportFiles: '**/*.html',  // Tüm .html dosyalarını al
-                    keepAll: true,
-                    alwaysLinkToLastBuild: true,
-                    allowMissing: true
-                ])
-            }
-        }
-    }
-
-    post {
-        always {
-            // HTML raporlarını arşivle
-            archiveArtifacts artifacts: 'target/surefire-reports/**/*.html', fingerprint: true
-        }
     }
 }
