@@ -27,23 +27,41 @@ pipeline {
             }
         }
 
-        stage('Test') {
+      /*   stage('Test') {
             steps {
                 echo 'Running tests...'
                 sh 'mvn test'
-                junit '**/target/surefire-reports/*.xml'  // Test sonuçlarını raporla
+                junit '**//* target/surefire-reports *//*.xml'  // Test sonuçlarını raporla
+            }
+        } */
+        stage('Build & Test') {
+            steps {
+                sh 'mvn clean test surefire-report:report-only' // Testleri çalıştır ve raporları oluştur
             }
         }
 
-        stage('Generate Allure Report') {
-                    steps {
-                        sh 'mvn allure:report'
-                    }
-                }
-                stage('Publish Allure Report') {
-                    steps {
-                        allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
-                    }
-                }
+        stage('Publish JUnit Report') {
+            steps {
+                junit '**/target/surefire-reports/*.xml' // JUnit test sonuçlarını al
+            }
+        }
+
+        stage('Publish HTML Report') {
+            steps {
+                publishHTML([
+                    reportName: 'JUnit HTML Report',
+                    reportDir: 'target/site',
+                    reportFiles: 'surefire-report.html',
+                    keepAll: true,
+                    alwaysLinkToLastBuild: true,
+                    allowMissing: true
+                ])
+            }
+        }
     }
+      post {
+            always {
+                archiveArtifacts artifacts: 'target/site/surefire-report.html', fingerprint: true
+            }
+        }
 }
