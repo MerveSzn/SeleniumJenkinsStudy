@@ -46,7 +46,7 @@ pipeline {
                 publishHTML([
                     reportName: 'JUnit HTML Report',
                     reportDir: 'target/surefire-reports',  // Dizin doğru olmalı
-                    reportFiles: 'surefire-report.html',
+                    reportFiles: '**/test-*.html',  // test-*.html olarak rapor adını güncelle
                     keepAll: true,
                     alwaysLinkToLastBuild: true,
                     allowMissing: true
@@ -57,7 +57,7 @@ pipeline {
 
       post {
             always {
-              archiveArtifacts artifacts: 'target/surefire-reports/surefire-report.html', fingerprint: true
+            archiveArtifacts artifacts: 'target/surefire-reports/test-*.html', fingerprint: true  // test-*.html olarak adını güncelle
             }
         }
 }
