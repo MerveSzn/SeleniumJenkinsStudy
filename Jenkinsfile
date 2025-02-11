@@ -45,7 +45,7 @@ pipeline {
             steps {
                 publishHTML([
                     reportName: 'JUnit HTML Report',
-                    reportDir: 'target/site',
+                    reportDir: 'target/surefire-reports',
                     reportFiles: 'surefire-report.html',
                     keepAll: true,
                     alwaysLinkToLastBuild: true,
