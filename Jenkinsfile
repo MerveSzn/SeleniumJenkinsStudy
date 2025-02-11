@@ -57,7 +57,7 @@ pipeline {
 
       post {
             always {
-            archiveArtifacts artifacts: 'target/surefire-reports/test-report.html', fingerprint: true  // Archive the HTML report
+                archiveArtifacts artifacts: 'target/surefire-reports/**/*.html', fingerprint: true  // Tüm HTML raporlarını arşivle
             }
         }
 }
