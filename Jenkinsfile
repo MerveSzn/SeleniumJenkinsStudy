@@ -45,7 +45,7 @@ pipeline {
             steps {
                 publishHTML([
                     reportName: 'JUnit HTML Report',
-                    reportDir: 'target/surefire-reports',
+                    reportDir: 'target/surefire-reports',  // Dizin doğru olmalı
                     reportFiles: 'surefire-report.html',
                     keepAll: true,
                     alwaysLinkToLastBuild: true,
@@ -57,7 +57,7 @@ pipeline {
 
       post {
             always {
-                archiveArtifacts artifacts: 'target/site/surefire-report.html', fingerprint: true
+              archiveArtifacts artifacts: 'target/surefire-reports/surefire-report.html', fingerprint: true
             }
         }
 }
