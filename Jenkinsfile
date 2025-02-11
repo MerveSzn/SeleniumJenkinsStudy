@@ -46,7 +46,7 @@ pipeline {
                 publishHTML([
                     reportName: 'JUnit HTML Report',
                     reportDir: 'target/surefire-reports',  // Path to the HTML report
-                    reportFiles: '**/test-report.html',  // Adjust according to the report's actual name
+                    reportFiles: '**/*.html',  // Tüm .html dosyalarını al
                     keepAll: true,
                     alwaysLinkToLastBuild: true,
                     allowMissing: true
