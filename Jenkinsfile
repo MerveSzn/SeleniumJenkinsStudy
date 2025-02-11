@@ -39,10 +39,21 @@ pipeline {
                 sh 'mvn clean test surefire-report:report-only' // Testleri çalıştır ve raporları oluştur
             }
         }
-
-        stage('Publish JUnit Report') {
+         stage('Publish Extent Report') {
             steps {
-                junit '**/target/surefire-reports/*.xml' // JUnit test sonuçlarını al
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'target/extent-reports',
+                    reportFiles: 'extentReport.html',
+                    reportName: 'Extent Report'
+                ])
+            }
+        }
+        /* stage('Publish JUnit Report') {
+            steps {
+                junit '**//* target/surefire-reports *//*.xml' // JUnit test sonuçlarını al
             }
         }
 
@@ -56,12 +67,14 @@ pipeline {
                     alwaysLinkToLastBuild: true,
                     allowMissing: true
                 ])
-            }
+            } */
         }
     }
+/*
       post {
             always {
                 archiveArtifacts artifacts: 'target/site/surefire-report.html', fingerprint: true
             }
         }
 }
+ */
