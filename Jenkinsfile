@@ -18,7 +18,7 @@ pipeline {
             }
         }
 
-        stage('Build') {
+       stage('Build') {
             steps {
                 echo 'Building project...'
                 withMaven(maven: 'Maven') {
@@ -31,13 +31,13 @@ pipeline {
             steps {
                 echo 'Running tests...'
                 sh 'mvn test'
-                junit '**/target/surefire-reports/*.xml'  // Test sonuçlarını raporla
+                junit '**/target/surefire-reports/*.xml'  // JUnit XML report
             }
         }
 
         stage('Publish JUnit Report') {
             steps {
-                junit '**/target/surefire-reports/*.xml' // JUnit test sonuçlarını al
+                junit '**/target/surefire-reports/*.xml' // JUnit test results
             }
         }
 
@@ -45,8 +45,8 @@ pipeline {
             steps {
                 publishHTML([
                     reportName: 'JUnit HTML Report',
-                    reportDir: 'target/surefire-reports',  // Dizin doğru olmalı
-                    reportFiles: '**/test-*.html',  // test-*.html olarak rapor adını güncelle
+                    reportDir: 'target/surefire-reports',  // Path to the HTML report
+                    reportFiles: '**/test-report.html',  // Adjust according to the report's actual name
                     keepAll: true,
                     alwaysLinkToLastBuild: true,
                     allowMissing: true
@@ -57,7 +57,7 @@ pipeline {
 
       post {
             always {
-            archiveArtifacts artifacts: 'target/surefire-reports/test-*.html', fingerprint: true  // test-*.html olarak adını güncelle
+            archiveArtifacts artifacts: 'target/surefire-reports/test-report.html', fingerprint: true  // Archive the HTML report
             }
         }
 }
