@@ -26,7 +26,20 @@
             <version>4.9.0</version> <!-- En son sürümü kontrol edin -->
         </dependency>
 
+        <!-- Extent Reports -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>5.1.1</version>
+        </dependency>
 
+        <!-- Lombok (JDK 21 ile uyumlu) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency>
         <!-- JUnit bağımlılığı -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
